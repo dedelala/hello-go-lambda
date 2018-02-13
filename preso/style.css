@@ -1,0 +1,15 @@
+body { font-family: 'Go'; font-size: large }
+h1, h2, h3 {
+font-family: 'Go';
+font-weight: normal;
+}
+.remark-code, .remark-inline-code { font-family: 'Go Mono'; }
+.lambda { font-family: 'Go Mono'; font-size: 1000%; text-shadow: 3px 3px 3px #9d5025; color: #f68536; }
+.inline { display: inline-block; }
+.img > img { width: 40%; }
+.bigimg > img { width: 80%; }
+.remark-slide-content {
+background: white url("preso/dedelala-gopher.png") no-repeat fixed bottom right;
+background-size: 10%
+}
+.remark-slide-number { display: none; }
