@@ -48,17 +48,23 @@ programming language. The thing I love most about it is it's conciseness.
 
 Less typing, easier reading.
 
-Just watch Rob Pike talk about it, really, if he can't sell you on it no-one
-can.
+Just watch Rob Pike talk about it, really, if he can't sell you on it no-one can.
 
 ---
 
 # Hello Go Lambda
 
+<br/><br/><br/><br/>
+```sh
+go get -d github.com/dedelala/hello-go-lambda
+```
+
 ???
 
 Cool? Cool. I need to give you a disclaimer: this presentation is all code. I'm wary of this
 but I think good go speaks for itself.
+
+If you're super keen you can go get this right now and have a poke through while I'm talking.
 
 ---
 
