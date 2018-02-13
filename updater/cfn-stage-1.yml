@@ -41,7 +41,7 @@ Resources:
   Lambda:
     Type: "AWS::Lambda::Function"
     Properties:
-      Description: Writes a log message.
+      Description: Updates a Lambda from an S3 Event.
       Handler: updater
       Role:
         Fn::GetAtt: LambdaRole.Arn
