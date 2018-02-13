@@ -1,0 +1,60 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: S3 Event Lambda
+Resources:
+  Bucket:
+    Type: "AWS::S3::Bucket"
+
+  LambdaPerms:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      FunctionName:
+        Fn::GetAtt: Lambda.Arn
+      Action: "lambda:InvokeFunction"
+      Principal: s3.amazonaws.com
+      SourceArn:
+        Fn::GetAtt: Bucket.Arn
+
+  LambdaRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: ["sts:AssumeRole"]
+      Policies:
+        - PolicyName: lambda-exec
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                  - "lambda:UpdateFunctionCode"
+                  - "s3:GetObject"
+                Effect: Allow
+                Resource:
+                  - "*"
+
+  Lambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description: Writes a log message.
+      Handler: updater
+      Role:
+        Fn::GetAtt: LambdaRole.Arn
+      Runtime: go1.x
+      Timeout: 3
+      Code:
+        S3Bucket: dedelala-go-lambda
+        S3Key: updater.zip
+
+Outputs:
+  Bucket:
+    Value:
+      Ref: Bucket
+  Lambda:
+    Value:
+      Ref: Lambda
