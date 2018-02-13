@@ -483,7 +483,7 @@ Cool! I have made a completely useless lambda. So how about a Lambda that does s
 
 ???
 I want a Lambda that can update Lambdas.
-As the Lambda peeps will know, if I were to change the first Lambda I showed you and re-package
+As the Lambda peeps will know, if I were to change the Lambda I just showed you and re-package
 it, I would also need to update the function code, a choice between calling some giant
 aws command or some voodoo with versioned buckets and references to object versions in
 cloudformation.
@@ -500,7 +500,7 @@ So, to that end, how about a Lambda that triggers an update function code call f
 ???
 Then all you gotta do is put the thing in a bucket and blammo: up to date.
 
-Time for more code slides...
+Let's have a look...
 
 ---
 
@@ -673,7 +673,7 @@ func main() {
 The AWS config only needs to be loaded once so it makes sense to do it here.
 
 I'm hesitant to panic, but init can't return an error so I have no choice.
-If there was ever a reason to panic, missing AWS config in the Lambda runtime would be it.
+If there was ever a reason to panic, missing AWS config in the Lambda runtime would be a good one.
 
 ---
 
@@ -697,12 +697,17 @@ func main() {
 ```
 
 ???
-I get a pointer to Lambda service with `lambda.New` and stick it in a package variable.
+I get a pointer to `lambda.Lambda` with `lambda.New` and stick it in a package variable.
 
 Remember, the `lambda` we are referring to here is the *SDK service lambda*,
 and not the *lambda runtime*. Two packages.
 
+For every service package in the SDK there's an iface package that allows you to mock the service object.
+
+For Lambda the package is lambda/lambdaiface. That's SDK service lambda. Two packages.
+
 This is a pattern for the SDK, and the service objects are safe to use concurrently.
+
 Using goroutines you can make thousands of calls in seconds. Maybe not so important
 in this context, but trust me you will find an application for that.
 
@@ -855,7 +860,7 @@ func Go(ev `events.S3Event`) error {
 ```
 
 ???
-There's an `events.S3Event`. Cool. Incidentally, the pre-defined
+Package `events` has an `S3Event`. Cool. Incidentally, the pre-defined
 structs make it super easy to figure out what the heck you are going to get passed
 when this thing runs. You can just look at the code.
 
@@ -1072,10 +1077,6 @@ func Update(f, b, k string) error {
 ```
 
 ???
-Every service package there's also an iface package that allows you to mock the service object.
-
-For Lambda the package is lambda/lambdaiface. That's SDK sercvice lambda. Two packages.
-
 In fact the main source file for sdk s3 I've been working with is 15,000 lines long.
 
 It's all generated from schema.
@@ -1098,7 +1099,7 @@ Still, it's not too hard to write simple functions that wrangle the SDK.
 So that's Go Lambdas! With a side of SDK. I hope you have enjoyed looking at slides upon slides
 of code, somehow, or maybe at least got some inspo to do something great with these.
 
-You can godoc.org slash any of these for all the gory details. I recommend the godoc over AWS's
+You can godoc.org slash any of the above for all the gory details. I recommend the godoc over AWS's
 docs which is where you will end up if you go googling.
 
 ---
