@@ -34,11 +34,11 @@ To deploy yourself, you will also need to change the Lambda Code location in clo
 
 ## Slides
 
-The presentation uses RemarkJS, you `cd preso && make preso` then point your browser at `localhost:1337`.
+The presentation uses RemarkJS, `cd preso && make preso` then point your browser at `localhost:1337`.
 `SIGINT` to kill.
 
 ## Credit Where Credit is Due
 
-- Egon Elbre's [gophers](github.com/egonelbre/gophers)
-- Ashley McNamara's [gophers](github.com/ashleymcnamara/gophers)
-- Get your own [gopher](gopherize.me)!
+- Egon Elbre's gophers: [github.com/egonelbre/gophers](https://github.com/egonelbre/gophers)
+- Ashley McNamara's gophers: [github.com/ashleymcnamara/gophers](https://github.com/ashleymcnamara/gophers)
+- Get your own gopher: [gopherize.me](https://gopherize.me)!
