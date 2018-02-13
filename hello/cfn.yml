@@ -1,0 +1,42 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Super Basic Lambda
+Resources:
+  LambdaRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: ["sts:AssumeRole"]
+      Policies:
+        - PolicyName: lambda-exec
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Effect: Allow
+                Resource:
+                  - "*"
+
+  Lambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description: Writes a log message.
+      Handler: hello
+      Role:
+        Fn::GetAtt: LambdaRole.Arn
+      Runtime: go1.x
+      Timeout: 3
+      Code:
+        S3Bucket: dedelala-go-lambda
+        S3Key: hello.zip
+
+Outputs:
+  Lambda:
+    Value:
+      Ref: Lambda
