@@ -34,7 +34,7 @@ To deploy yourself, you will also need to change the Lambda Code location in clo
 
 ## Slides
 
-The presentation uses RemarkJS, `cd preso && make preso` then point your browser at `localhost:1337`.
+The presentation uses a RemarkJS docker container, `cd preso && make preso` then point your browser at `localhost:1337`.
 `SIGINT` to kill.
 
 ## Credit Where Credit is Due
