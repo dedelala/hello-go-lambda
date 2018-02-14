@@ -14,7 +14,7 @@ $(bin): *.go
 	CGO_ENABLED=0 GOOS=linux go build
 
 $(bin).zip: $(bin)
-	zip $<.zip $<
+	zip $@ $<
 
 stage-%:
 	aws cloudformation deploy --template-file cfn-$@.yml --stack-name $(stack) \
